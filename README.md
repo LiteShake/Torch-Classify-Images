@@ -1,9 +1,10 @@
 # Torch-Classify-Images
 PyTorch implementations of various Convolution Net architectures for the image classification task.
+Just a torch refresher maybe.
 
 ### To-Do
-[ ] Classicc Conv net
-[ ] ResNeet
-[ ] AlexNet
-[ ] VGG
-[ ] GoogleNet
+- [ ] Classic Conv net
+- [ ] ResNeet
+- [ ] AlexNet
+- [ ] VGG
+- [ ] GoogleNet
