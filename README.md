@@ -4,7 +4,7 @@ Just a torch refresher maybe.
 
 ### To-Do
 - [ ] Classic Conv net
-- [ ] ResNeet
+- [ ] ResNet
 - [ ] AlexNet
 - [ ] VGG
 - [ ] GoogleNet
