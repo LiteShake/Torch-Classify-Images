@@ -24,11 +24,11 @@ def LoadMNIST() :
     )
 
     # dataloaders
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                            shuffle=True, num_workers=2)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=1,
+                                            shuffle=True, num_workers=0)
 
 
-    testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                            shuffle=False, num_workers=2)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=1,
+                                            shuffle=False, num_workers=0)
     
     return trainloader, testloader

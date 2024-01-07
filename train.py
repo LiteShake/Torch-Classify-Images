@@ -1,14 +1,17 @@
 import torch
 import numpy as np
+import torch.optim as optim
+from torch.nn import CrossEntropyLoss
 
-def Train(model, optim, loss_crit, trainset, epochs, device):
+def Train(model, trainset, epochs, device):
     
-    history = {
-        'Accuracy':[],
-        'Loss':[]
-    }
+    Accuracy_lst = []
+    Loss_lst = []
     
     model = model.to(device)
+    
+    optimizer = optim.Adam(model.parameters(), lr = 5e-4, betas=(.9, .999))
+    loss_crit = CrossEntropyLoss()
     
     for epoch in range(epochs):
         
@@ -20,16 +23,20 @@ def Train(model, optim, loss_crit, trainset, epochs, device):
             inputs, labels = data
             inputs = inputs.to(device)
             
-            optim.zero_grad()
+            
+            optimizer.zero_grad()
             
             outs = model.forward(inputs)
             
             labels = np.eye(10)[labels]
             labels = torch.from_numpy(labels)
             labels = labels.to(device)
+            # print(labels)
+            
+            # print(outs.shape, labels.shape)
             
             loss = loss_crit(outs, labels)
-            optim.step()
+            optimizer.step()
             
             running_acc += (outs == labels).float().sum()
             running_loss += loss.item()
@@ -38,10 +45,10 @@ def Train(model, optim, loss_crit, trainset, epochs, device):
                 
                 print(f"Epoch {epoch+1} \tAccuracy {running_acc:.3f} \tLoss {running_loss / 2000:.3f}")
                 
-                history["Accuracy"] = history["Accuracy"].append(running_acc)
-                history["Loss"] = history["Loss"].append(running_loss)
+                Accuracy_lst.append(running_acc)
+                Loss_lst.append(running_loss)
                      
                 running_loss = 0.0
                 running_acc = 0.0
                 
-    return model, history
+    return model, {"Accuracy":Accuracy_lst, "Loss":Loss_lst}
