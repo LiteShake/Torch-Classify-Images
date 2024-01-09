@@ -68,6 +68,7 @@ docs/_build/
 target/
 
 # Jupyter Notebook
+experiments/
 .ipynb_checkpoints
 .ipynb
 
