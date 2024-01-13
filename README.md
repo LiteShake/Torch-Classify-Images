@@ -3,7 +3,7 @@ PyTorch implementations of various Convolution Net architectures for the image c
 Just a torch refresher maybe.
 
 ### To-Do
-- [ ] Classic Conv net
+- [x] Classic Conv net
 - [ ] ResNet
 - [ ] AlexNet
 - [ ] VGG
