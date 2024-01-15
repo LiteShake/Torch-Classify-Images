@@ -4,29 +4,45 @@ import torch.nn.functional as F
 
 class ResNetBlock(nn.Module):
     
-    def __init__(self, filters):
-        super.__init__
+    def __init__(self, in_chan, out_chan, downsample):
         
+        super().__init__()
+        
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 64, 7, 2, 3, bias = False),
+            nn.BatchNorm2d(),
+            nn.ReLU()
+        )
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(out_chan, out_chan, 3, 1, 1),
+            nn.BatchNorm2d()
+        )
+        self.dwnsamp = downsample
+        self.relu = nn.ReLU()
+        self.out_chan = out_chan
+        
+    def forward(self, x):
+        res = x
+        out = self.conv1(x)
+        out = self.conv2(out)
+        
+        if self.dwnsamp: res = self.dwnsamp(x)
+        
+        out += res
+        out = self.relu(out)
+        
+        return out
     
-class ConvSingleChan(nn.Module):
+class ResNetSingleChan(nn.Module):
     
     def __init__(self) :
         super().__init__()
-        self.conv2 = nn.Conv2d(1, 4, 5, 1, 2)
-        self.pool = nn.AvgPool2d(2, 2)
-        self.conv2 = nn.Conv2d(4, 16, 5, 1, 2)
-        self.conv3 = nn.Conv2d(16, 32, 5, 1, 2)
-        self.fc1 = nn.Linear(1000, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear( 64, 10)
+        self.inplanes = 64
+        
         
     def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = torch.flatten(x, 0)
-        # print(x.shape)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.sigmoid(self.fc3(x))
         
+        x = self.conv1(x)
+        se
+                
         return x

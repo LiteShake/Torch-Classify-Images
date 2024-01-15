@@ -3,6 +3,7 @@ import numpy as np
 import torch.optim as optim
 from torch.nn import CrossEntropyLoss
 
+from torch.utils.tensorboard import SummaryWriter
 
 class Trainer:
     
@@ -11,7 +12,9 @@ class Trainer:
         self.model = model
         
     
-    def Train(self, trainset, epochs, device):
+    def Train(self, trainset, epochs, device, model_name):
+        
+        writer = SummaryWriter(f'runs/{model_name}')
         
         Accuracy_lst = []
         Loss_lst = []
